@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/23 18:09:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:17:24 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,21 +23,27 @@ static int BUFFER_SIZE = 20;
 
 char	*get_next_line(int fd)
 {
+	int		i;
 	char	c;
 	char	*buf;
 	ssize_t	bytes_read;
 	
+	i = 0;
 	buf = malloc(BUFFER_SIZE * sizeof(char));
 		if (!buf)
 		return (NULL);
 	while(bytes_read > 0 || c != '\n')
 	{
  		bytes_read = read(fd, &c, 1);
+		buf[i] = c;
+		i++;
 	}
+	buf[i] = '\0';
 	if (bytes_read < 0)
 	{
 		return (NULL);
 	}
+	return (buf);
 }
 
 int main(void)
