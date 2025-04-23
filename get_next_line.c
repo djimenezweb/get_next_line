@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/23 18:17:24 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/23 18:21:10 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -32,7 +32,7 @@ char	*get_next_line(int fd)
 	buf = malloc(BUFFER_SIZE * sizeof(char));
 		if (!buf)
 		return (NULL);
-	while(bytes_read > 0 || c != '\n')
+	while((bytes_read > 0) && (BUFFER_SIZE < bytes_read) || (c != '\n'))
 	{
  		bytes_read = read(fd, &c, 1);
 		buf[i] = c;
