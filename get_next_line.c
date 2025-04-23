@@ -6,27 +6,42 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/23 15:25:51 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:25:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+static int BUFFER_SIZE;
+
+static int BUFFER_SIZE = 20;
+
+char	*get_next_line(int fd)
+{
+	char	*buf;
+	int		i;
+
+	i = 0;
+	buf = malloc(BUFFER_SIZE * sizeof(char));
+	read(fd, buf, BUFFER_SIZE);
+	return (buf);
+}
 
 int main(void)
 {
-	int		buf_size;
 	int		fd;
-	char	*buf;
+	char	*str;
 
-	buf_size = 20;
-	fd = open("./test_file");
-	buf = malloc(buf_size * sizeof(char));
-	while (buf_size > 0)
+	fd = open("./test_file", O_RDONLY);
+	while (str)
 	{
-		read(fd, buf, (size_t)buf_size);
-		buf_size--;
+		str = get_next_line(fd);
+		printf("%s", str);
 	}
-	free(buf);
 	close(fd);
 }
