@@ -48,16 +48,9 @@ char  *get_next_line(int fd);
   - Devuelve la línea leída.
   - En caso de fallo o si la lectura termina, `NULL`.
 
-- Funciones autorizadas:
+- Funciones autorizadas: `read`, `malloc`, `free`
 
-  - `read`
-  - `malloc`
-  - `free`
-
-- Prohibido:
-  - `libft`
-  - `lseek`
-  - Variables globales
+- Prohibido: `libft`, `lseek`, variables globales
 
 ### Notas
 
