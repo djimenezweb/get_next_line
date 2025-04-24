@@ -1,7 +1,7 @@
 NAME = get_next_line.a
 CC = cc
+CFLAGS = -Wall -Werror -Wextra
 AR = ar
-CCFLAGS = -Wall -Werror -Wextra
 ARFLAGS = rcs
 CFILES = get_next_line.c get_next_line_utils.c
 OBJS = $(CFILES:.c=.o)
