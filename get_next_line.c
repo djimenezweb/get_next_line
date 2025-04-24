@@ -6,15 +6,15 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 11:03:46 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:10:42 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "get_next_line.h"
 
-static int BUFFER_SIZE;
+int BUFFER_SIZE;
 
-static int BUFFER_SIZE = 256;
+BUFFER_SIZE = 256;
 
 char	*get_next_line(int fd)
 {
