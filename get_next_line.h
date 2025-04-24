@@ -6,9 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:43:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 10:42:29 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:10:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 256
+#endif
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H

@@ -1,6 +1,6 @@
 NAME = get_next_line.a
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -D BUFFER_SIZE=128
 AR = ar
 ARFLAGS = rcs
 CFILES = get_next_line.c get_next_line_utils.c

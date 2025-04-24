@@ -6,15 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 11:10:42 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:22:07 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "get_next_line.h"
-
-int BUFFER_SIZE;
-
-BUFFER_SIZE = 256;
 
 char	*get_next_line(int fd)
 {
@@ -26,6 +22,7 @@ char	*get_next_line(int fd)
 	ssize_t	n_bytes;
 	
 	i = 0;
+	n_bytes = 1;
 	buffer = malloc(BUFFER_SIZE * sizeof(char));
 	if (!buffer)
 		return (NULL);
