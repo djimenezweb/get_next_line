@@ -6,44 +6,45 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/23 18:21:10 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:56:54 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+#include "get_next_line.h"
 
 static int BUFFER_SIZE;
 
-static int BUFFER_SIZE = 20;
+static int BUFFER_SIZE = 256;
 
 char	*get_next_line(int fd)
 {
 	int		i;
 	char	c;
-	char	*buf;
-	ssize_t	bytes_read;
+	char	*buffer;
+	char	*stash;
+	char	*line;
+	ssize_t	n_bytes;
 	
 	i = 0;
-	buf = malloc(BUFFER_SIZE * sizeof(char));
-		if (!buf)
+	buffer = malloc(BUFFER_SIZE * sizeof(char));
+	if (!buffer)
 		return (NULL);
-	while((bytes_read > 0) && (BUFFER_SIZE < bytes_read) || (c != '\n'))
+	
+	while(n_bytes > 0)
 	{
- 		bytes_read = read(fd, &c, 1);
-		buf[i] = c;
+		n_bytes = read(fd, &c, 1);
+		buffer[i] = c;
 		i++;
 	}
-	buf[i] = '\0';
-	if (bytes_read < 0)
+	buffer[i] = '\0';
+
+	// line = ft_strdup(buffer);
+	
+	if (n_bytes < 0)
 	{
 		return (NULL);
 	}
-	return (buf);
+	return (line);
 }
 
 int main(void)
@@ -51,7 +52,7 @@ int main(void)
 	int		fd;
 	char	*str;
 
-	fd = open("./test_file", O_RDONLY);
+	fd = open("./pinker_language", O_RDONLY);
 	while (str)
 	{
 		str = get_next_line(fd);
