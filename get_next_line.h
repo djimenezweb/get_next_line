@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:43:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 12:10:56 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 12:26:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -27,5 +27,6 @@ size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*get_next_line(int fd);
 
 #endif
