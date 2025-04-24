@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 10:56:54 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:03:46 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,13 +37,12 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	buffer[i] = '\0';
-
-	// line = ft_strdup(buffer);
-	
-	if (n_bytes < 0)
+	stash = ft_strjoin(buffer, stash);
+	line = ft_strdup(buffer);
+/* 	if (n_bytes < 0)
 	{
 		return (NULL);
-	}
+	} */
 	return (line);
 }
 

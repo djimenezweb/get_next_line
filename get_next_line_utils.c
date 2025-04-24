@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:45:50 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 10:56:54 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:59:43 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -40,7 +40,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-// Returns new string which is a duplicate of the string s
+// Returns new string, which is a duplicate of the string s
 char	*ft_strdup(const char *str)
 {
 	char	*dup;
@@ -59,7 +59,7 @@ char	*ft_strdup(const char *str)
 	return (dup);
 }
 
-// Returns excerpt of string from start to length len.
+// Returns excerpt of a string from start to length len.
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
