@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/25 15:27:50 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/25 17:37:35 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,46 +14,54 @@
 
 char	*get_next_line(int fd)
 {
-	// char	*substring;
+	char	*substring;
 	char	*line;
 	char	*buffer;
-	// int		i;
+	int		i;
 	ssize_t	bytes_read;
 
+	i = 0;
 	bytes_read = 0;
-	buffer = malloc(BUFFER_SIZE - 1);
+	buffer = malloc(BUFFER_SIZE);
 	if (!buffer)
 		return (NULL);
 	
-	while ((bytes_read = read(fd, buffer, BUFFER_SIZE - 1)) > 0)
+	bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
+	if (bytes_read <= 0)
 	{
-		line = ft_strjoin(line, buffer);
+		free(buffer);
+		return (NULL);
 	}
-
-	/* 	bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
-
 	buffer[bytes_read] = '\0';
-	line = ft_strdup(buffer);
-	while (bytes_read > 0)
+	while (buffer[i] && buffer[i] != '\n')
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
-
-		buffer[bytes_read] = '\0';
-		line = ft_strjoin(line, buffer);
-	} */
+		i++;
+	}
+	substring = ft_substr(buffer, 0, i);
+	line = ft_strdup("");
+	line = ft_strjoin(line, substring);
+	free(substring);
 	free(buffer);
 	return (line);
 }
 
 int main(void)
 {
+	int		i;
 	int		fd;
 	char	*line;
-
+	
+	i = 0;
 	fd = open("./pinker_language.txt", O_RDONLY);
-	line = get_next_line(fd);
-	printf("--START--\n");
-	printf("%s\n", line);
-	printf("--END--\n");
+	printf("[START--\n");
+	while (i < 5)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		i++;
+	}
+	printf("\n--END]\n");
+	
 	close(fd);
 }
+
