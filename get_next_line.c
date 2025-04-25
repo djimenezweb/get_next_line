@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 12:22:07 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:27:50 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -14,45 +14,46 @@
 
 char	*get_next_line(int fd)
 {
-	int		i;
-	char	c;
-	char	*buffer;
-	char	*stash;
+	// char	*substring;
 	char	*line;
-	ssize_t	n_bytes;
-	
-	i = 0;
-	n_bytes = 1;
-	buffer = malloc(BUFFER_SIZE * sizeof(char));
+	char	*buffer;
+	// int		i;
+	ssize_t	bytes_read;
+
+	bytes_read = 0;
+	buffer = malloc(BUFFER_SIZE - 1);
 	if (!buffer)
 		return (NULL);
 	
-	while(n_bytes > 0)
+	while ((bytes_read = read(fd, buffer, BUFFER_SIZE - 1)) > 0)
 	{
-		n_bytes = read(fd, &c, 1);
-		buffer[i] = c;
-		i++;
+		line = ft_strjoin(line, buffer);
 	}
-	buffer[i] = '\0';
-	stash = ft_strjoin(buffer, stash);
+
+	/* 	bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
+
+	buffer[bytes_read] = '\0';
 	line = ft_strdup(buffer);
-/* 	if (n_bytes < 0)
+	while (bytes_read > 0)
 	{
-		return (NULL);
+		bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
+
+		buffer[bytes_read] = '\0';
+		line = ft_strjoin(line, buffer);
 	} */
+	free(buffer);
 	return (line);
 }
 
 int main(void)
 {
 	int		fd;
-	char	*str;
+	char	*line;
 
-	fd = open("./pinker_language", O_RDONLY);
-	while (str)
-	{
-		str = get_next_line(fd);
-		printf("%s", str);
-	}
+	fd = open("./pinker_language.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("--START--\n");
+	printf("%s\n", line);
+	printf("--END--\n");
 	close(fd);
 }
