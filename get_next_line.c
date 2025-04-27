@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 21:37:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:36:26 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -74,29 +74,4 @@ char	*get_next_line(int fd)
 	free(stack);
 	free(buffer);
 	return (line);
-}
-// cc -Wall -Werror -Wextra -D BUFFER_SIZE=512 get_next_line.c get_next_line_utils.c
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	
-	fd = open("./many_end_lines", O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error opening the file\n");
-		return (1);
-	}
-	
-	printf("[START] buffer size=%d\n", BUFFER_SIZE);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	printf("[END]\n");	
-	close(fd);
-	return (0);
 }
