@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 13:45:36 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:56:27 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -27,14 +27,20 @@ static char	*stash_to_line(char *stash, char **excess)
 	return (line);
 }
 
-static ssize_t	read_to_buffer(int fd, char *buffer)
+static char	*read_to_buffer(int fd, char *buffer, char *stash)
 {
 	ssize_t		read_bytes;
 
-	read_bytes = read(fd, buffer, BUFFER_SIZE);
-	if (read_bytes >= 0)
-		buffer[read_bytes] = '\0';
-	return (read_bytes);
+	while (!ft_strchr(stash, '\n'))
+	{
+		read_bytes = read(fd, buffer, BUFFER_SIZE);
+		if (read_bytes >= 0)
+			buffer[read_bytes] = '\0';
+		if (read_bytes <= 0)
+			break ;
+		stash = ft_strjoin(stash, buffer);
+	}
+	return (stash);
 }
 
 char	*get_next_line(int fd)
@@ -43,7 +49,6 @@ char	*get_next_line(int fd)
 	static char	*excess;
 	char		*buffer;
 	char		*line;
-	ssize_t		read_bytes;
 
 	if (!fd || fd < 0)
 		return (NULL);
@@ -54,13 +59,7 @@ char	*get_next_line(int fd)
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer || !stash)
 		return (NULL);
-	while (!ft_strchr(stash, '\n'))
-	{
-		read_bytes = read_to_buffer(fd, buffer);
-		if (read_bytes <= 0)
-			break ;
-		stash = ft_strjoin(stash, buffer);
-	}
+	stash = read_to_buffer(fd, buffer, stash);
 	line = stash_to_line(stash, &excess);
 	if (!line)
 		return (NULL);
@@ -78,7 +77,7 @@ char	*get_next_line(int fd)
 	char	*line3;
 	
 	i = 0;
-	fd = open("./test_file", O_RDONLY);
+	fd = open("./pinker_language.txt", O_RDONLY);
 	printf("[START]\n");
 	line1 = get_next_line(fd);
 	printf("--> LINE: %s", line1);
@@ -89,5 +88,4 @@ char	*get_next_line(int fd)
 	printf("[END]\n");
 	
 	close(fd);
-}
- */
+} */
