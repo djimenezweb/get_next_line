@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 21:32:43 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 21:37:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -56,7 +56,7 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*line;
 
-	if (BUFFER_SIZE <=0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	if (excess)
 		stack = ft_strdup(excess);
@@ -76,7 +76,7 @@ char	*get_next_line(int fd)
 	return (line);
 }
 // cc -Wall -Werror -Wextra -D BUFFER_SIZE=512 get_next_line.c get_next_line_utils.c
-int main(void)
+int	main(void)
 {
 	int		fd;
 	char	*line;
