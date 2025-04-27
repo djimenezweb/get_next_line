@@ -9,10 +9,7 @@ valgrind --leak-check=full --track-origins=yes ./gnl_test
 
 */
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "get_next_line.h"
 
 char *get_next_line(int fd);
 
