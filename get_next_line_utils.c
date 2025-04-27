@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:45:50 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/24 10:59:43 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:27:53 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *str, int c)
 	}
 	if ((char)c == '\0')
 		return ((char *)str);
-	return ((void *)0);
+	return (NULL);
 }
 
 // Returns the length of a string excluding '\0'
@@ -46,10 +46,12 @@ char	*ft_strdup(const char *str)
 	char	*dup;
 	size_t	i;
 
+	if(!str)
+		return (NULL);
 	i = 0;
 	dup = malloc(ft_strlen(str) + 1);
 	if (!dup)
-		return ((void *)0);
+		return (NULL);
 	while (str[i])
 	{
 		dup[i] = str[i];
@@ -66,7 +68,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*substr;
 
 	if (!s)
-		return ((void *)0);
+		return (NULL);
 	i = 0;
 	if (start > ft_strlen(s))
 		return (ft_strdup("\0"));
@@ -74,7 +76,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = ft_strlen(s) - start;
 	substr = malloc(len + 1);
 	if (!substr)
-		return ((void *)0);
+		return (NULL);
 	while (s[start] && i < len)
 	{
 		substr[i] = s[start];
@@ -96,7 +98,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
 	str = malloc(len + 1);
 	if (!str)
-		return ((void *)0);
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (s1[i])
