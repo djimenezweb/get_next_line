@@ -6,64 +6,88 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/25 18:50:32 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 13:45:36 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "get_next_line.h"
 
-char	*file_to_buffer(int fd)
+static char	*stash_to_line(char *stash, char **excess)
 {
-	char	*buffer;
-	ssize_t	bytes_read;
+	int		i;
+	char	*line;
 
-	bytes_read = 0;
-	buffer = malloc(BUFFER_SIZE);
-	if (!buffer)
-		return (NULL);
-	bytes_read = read(fd, buffer, BUFFER_SIZE - 1);
-	if (bytes_read <= 0)
-	{
-		free(buffer);
-		return (NULL);
-	}
-	buffer[bytes_read] = '\0';
-	return (buffer);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	i++;
+	line = ft_substr(stash, 0, i);
+	free(*excess);
+	*excess = ft_substr(stash, i, ft_strlen(stash));
+	return (line);
+}
+
+static ssize_t	read_to_buffer(int fd, char *buffer)
+{
+	ssize_t		read_bytes;
+
+	read_bytes = read(fd, buffer, BUFFER_SIZE);
+	if (read_bytes >= 0)
+		buffer[read_bytes] = '\0';
+	return (read_bytes);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*line;
-	char	*buffer;
-	char	*stash;
-	int		i;
+	char		*stash;
+	static char	*excess;
+	char		*buffer;
+	char		*line;
+	ssize_t		read_bytes;
 
-	i = 0;
-	buffer = file_to_buffer(fd);
-	while (buffer[i])
+	if (!fd || fd < 0)
+		return (NULL);
+	if (excess)
+		stash = ft_strdup(excess);
+	else
+		stash = ft_strdup("");
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer || !stash)
+		return (NULL);
+	while (!ft_strchr(stash, '\n'))
 	{
-		if (buffer[i++] == '\n')
-			break;
-		i++;
+		read_bytes = read_to_buffer(fd, buffer);
+		if (read_bytes <= 0)
+			break ;
+		stash = ft_strjoin(stash, buffer);
 	}
-	line = ft_strdup("");
-	line = ft_strjoin(line, ft_substr(buffer, 0, i));
+	line = stash_to_line(stash, &excess);
+	if (!line)
+		return (NULL);
+	free(stash);
 	free(buffer);
 	return (line);
 }
 
-int main(void)
+/* int main(void)
 {
 	int		i;
 	int		fd;
-	char	*line;
+	char	*line1;
+	char	*line2;
+	char	*line3;
 	
 	i = 0;
-	fd = open("./pinker_language.txt", O_RDONLY);
+	fd = open("./test_file", O_RDONLY);
 	printf("[START]\n");
-	line = get_next_line(fd);
-	printf("%s", line);
-	printf("\n[END]\n");
+	line1 = get_next_line(fd);
+	printf("--> LINE: %s", line1);
+	line2 = get_next_line(fd);
+	printf("--> LINE: %s", line2);
+	line3 = get_next_line(fd);
+	printf("--> LINE: %s", line3);
+	printf("[END]\n");
 	
 	close(fd);
 }
+ */
