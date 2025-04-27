@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 13:56:27 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 17:22:43 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -22,14 +22,15 @@ static char	*stash_to_line(char *stash, char **excess)
 		i++;
 	i++;
 	line = ft_substr(stash, 0, i);
-	free(*excess);
+	if (excess != NULL)
+		free(*excess);
 	*excess = ft_substr(stash, i, ft_strlen(stash));
 	return (line);
 }
 
-static char	*read_to_buffer(int fd, char *buffer, char *stash)
+static char	*read_to_stash(int fd, char *buffer, char *stash)
 {
-	ssize_t		read_bytes;
+	ssize_t	read_bytes;
 
 	while (!ft_strchr(stash, '\n'))
 	{
@@ -59,7 +60,7 @@ char	*get_next_line(int fd)
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer || !stash)
 		return (NULL);
-	stash = read_to_buffer(fd, buffer, stash);
+	stash = read_to_stash(fd, buffer, stash);
 	line = stash_to_line(stash, &excess);
 	if (!line)
 		return (NULL);
@@ -68,15 +69,13 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/* int main(void)
+int main(void)
 {
-	int		i;
 	int		fd;
 	char	*line1;
 	char	*line2;
 	char	*line3;
 	
-	i = 0;
 	fd = open("./pinker_language.txt", O_RDONLY);
 	printf("[START]\n");
 	line1 = get_next_line(fd);
@@ -88,4 +87,4 @@ char	*get_next_line(int fd)
 	printf("[END]\n");
 	
 	close(fd);
-} */
+}
