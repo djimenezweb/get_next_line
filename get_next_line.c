@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 21:37:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/27 22:20:41 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -25,9 +25,19 @@ static char	*stack_to_line(char *stack, char **excess)
 	if (stack[i] == '\n')
 		i++;
 	line = ft_substr(stack, 0, i);
-	if (excess != NULL)
+	if (!line)
+		return (NULL);
+	if (excess)
+	{
 		free(*excess);
-	*excess = ft_substr(stack, i, ft_strlen(stack));
+		if (stack[i])
+			*excess = ft_substr(stack, i, ft_strlen(stack) - i);
+		else
+			*excess = NULL;
+	}
+/* 	if (excess)
+		free(*excess);
+	*excess = ft_substr(stack, i, (ft_strlen(stack) - i)); */
 	return (line);
 }
 
@@ -51,52 +61,42 @@ static char	*read_to_stack(int fd, char *buffer, char *stack)
 
 char	*get_next_line(int fd)
 {
-	char		*stack;
 	static char	*excess;
+	char		*stack;
 	char		*buffer;
 	char		*line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	if (excess)
-		stack = ft_strdup(excess);
-	else
-		stack = ft_strdup("");
-	if (!stack)
-		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	stack = read_to_stack(fd, buffer, stack);
-	line = stack_to_line(stack, &excess);
-	if (!line)
+	if (excess)
+	{
+		stack = ft_strdup(excess);
+		free(excess);
+	}
+	else
+		stack = ft_strdup("");
+	if (!stack)
+	{
+		free(buffer);
 		return (NULL);
-	free(stack);
+	}
+	stack = read_to_stack(fd, buffer, stack);
 	free(buffer);
+	if (!stack)
+		return (NULL);
+	line = stack_to_line(stack, &excess);
+	free(stack);
+	if (!line)
+	{
+		if (excess)
+		{
+			free(excess);
+			excess = NULL;
+		}
+		return (NULL);
+	}
 	return (line);
-}
-// cc -Wall -Werror -Wextra -D BUFFER_SIZE=512 get_next_line.c get_next_line_utils.c
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	
-	fd = open("./many_end_lines", O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error opening the file\n");
-		return (1);
-	}
-	
-	printf("[START] buffer size=%d\n", BUFFER_SIZE);
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		printf("%s", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	printf("[END]\n");	
-	close(fd);
-	return (0);
 }
