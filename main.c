@@ -5,7 +5,10 @@ cc -Wall -Werror -Wextra -D BUFFER_SIZE=512 main.c get_next_line.c get_next_line
 
 Valgrind tests:
 cc -g -Wall -Werror -Wextra -D BUFFER_SIZE=512 main.c get_next_line.c get_next_line_utils.c -o gnl_test
+
 valgrind --leak-check=full --track-origins=yes ./gnl_test
+
+valgrind -s --leak-check=full --track-origins=yes --show-leak-kinds=all ./gnl_test
 
 */
 
@@ -18,7 +21,7 @@ int main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("test4", O_RDONLY);
+	fd = open("test3", O_RDONLY);
 	if (fd < 0)
 	{
 		perror("open");

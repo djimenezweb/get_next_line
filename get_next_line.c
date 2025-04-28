@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/28 10:30:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:17:29 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -71,10 +71,19 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
+	{
+		free(stack);
 		return (NULL);
+	}
+	buffer[0] = '\0';
 	stack = read_to_stack(fd, buffer, stack);
 	line = stack_to_line(stack, &excess);
 	free(stack);
 	free(buffer);
+	if (!line && excess)
+	{
+		free(excess);
+		excess = NULL;
+	}
 	return (line);
 }

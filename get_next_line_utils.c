@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:45:50 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 22:27:53 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/28 11:17:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,7 +46,7 @@ char	*ft_strdup(const char *str)
 	char	*dup;
 	size_t	i;
 
-	if(!str)
+	if (!str)
 		return (NULL);
 	i = 0;
 	dup = malloc(ft_strlen(str) + 1);
