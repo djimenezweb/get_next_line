@@ -18,7 +18,7 @@ int main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("test3", O_RDONLY);
+	fd = open("test4", O_RDONLY);
 	if (fd < 0)
 	{
 		perror("open");

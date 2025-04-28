@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 22:36:26 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/28 10:30:19 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -28,23 +28,28 @@ static char	*stack_to_line(char *stack, char **excess)
 	if (excess != NULL)
 		free(*excess);
 	*excess = ft_substr(stack, i, ft_strlen(stack));
+	if (!line)
+		return (NULL);
 	return (line);
 }
 
 static char	*read_to_stack(int fd, char *buffer, char *stack)
 {
 	ssize_t	read_bytes;
+	char	*new_stack;
 
-	while (!ft_strchr(stack, '\n'))
+	while (!ft_strchr(buffer, '\n'))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes >= 0)
 			buffer[read_bytes] = '\0';
 		if (read_bytes <= 0)
 			break ;
-		stack = ft_strjoin(stack, buffer);
-		if (!stack)
+		new_stack = ft_strjoin(stack, buffer);
+		free(stack);
+		if (!new_stack)
 			return (NULL);
+		stack = new_stack;
 	}
 	return (stack);
 }
@@ -69,8 +74,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stack = read_to_stack(fd, buffer, stack);
 	line = stack_to_line(stack, &excess);
-	if (!line)
-		return (NULL);
 	free(stack);
 	free(buffer);
 	return (line);
