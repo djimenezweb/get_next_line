@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/28 11:17:29 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:19:17 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -33,11 +33,16 @@ static char	*stack_to_line(char *stack, char **excess)
 	return (line);
 }
 
-static char	*read_to_stack(int fd, char *buffer, char *stack)
+static char	*read_to_stack(int fd, char *stack)
 {
 	ssize_t	read_bytes;
+	char	*buffer;
 	char	*new_stack;
 
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	buffer[0] = '\0';
 	while (!ft_strchr(buffer, '\n'))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
@@ -51,6 +56,7 @@ static char	*read_to_stack(int fd, char *buffer, char *stack)
 			return (NULL);
 		stack = new_stack;
 	}
+	free(buffer);
 	return (stack);
 }
 
@@ -58,7 +64,6 @@ char	*get_next_line(int fd)
 {
 	char		*stack;
 	static char	*excess;
-	char		*buffer;
 	char		*line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
@@ -69,17 +74,9 @@ char	*get_next_line(int fd)
 		stack = ft_strdup("");
 	if (!stack)
 		return (NULL);
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-	{
-		free(stack);
-		return (NULL);
-	}
-	buffer[0] = '\0';
-	stack = read_to_stack(fd, buffer, stack);
+	stack = read_to_stack(fd, stack);
 	line = stack_to_line(stack, &excess);
 	free(stack);
-	free(buffer);
 	if (!line && excess)
 	{
 		free(excess);

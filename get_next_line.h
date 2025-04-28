@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 09:43:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/27 12:05:14 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/28 12:25:03 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <fcntl.h>
 
 char	*ft_strchr(const char *str, int c);
