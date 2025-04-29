@@ -21,7 +21,7 @@ int main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("test1", O_RDONLY);
+	fd = open("test4", O_RDONLY);
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
