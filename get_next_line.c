@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/28 12:19:17 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:39:33 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,10 +46,15 @@ static char	*read_to_stack(int fd, char *stack)
 	while (!ft_strchr(buffer, '\n'))
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
-		if (read_bytes >= 0)
-			buffer[read_bytes] = '\0';
-		if (read_bytes <= 0)
+		if (read_bytes == 0)
 			break ;
+		if (read_bytes < 0)
+		{
+			free(buffer);
+			free(stack);
+			return NULL ;
+		}
+		buffer[read_bytes] = '\0';
 		new_stack = ft_strjoin(stack, buffer);
 		free(stack);
 		if (!new_stack)
