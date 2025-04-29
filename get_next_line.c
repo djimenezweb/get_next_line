@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:05:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/04/29 09:59:37 by danielji         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:08:32 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,7 +46,7 @@ static char	*read_to_stack(int fd, char *stack)
 {
 	ssize_t	read_bytes;
 	char	*buffer;
-	
+
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
@@ -60,7 +60,7 @@ static char	*read_to_stack(int fd, char *stack)
 		{
 			free(buffer);
 			free(stack);
-			return (NULL) ;
+			return (NULL);
 		}
 		buffer[read_bytes] = '\0';
 		stack = buffer_to_stack(stack, buffer);
