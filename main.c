@@ -21,7 +21,11 @@ int	main(void)
 	int		fd;
 	char	*line;
 
-	fd = open("test5", O_RDONLY);
+	fd = open("test2", O_RDONLY);
+	//fd = 0;
+	if (fd < 0)
+		printf("Error reading the file\n");
+	printf("~ ~ ~ GET NEXT LINE ~ BUFFER SIZE: %i BYTES  ~ ~ ~\n", BUFFER_SIZE);
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
@@ -29,5 +33,6 @@ int	main(void)
 	}
 	if (fd > 0)
 		close(fd);
+	printf("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n");
 	return (0);
 }
