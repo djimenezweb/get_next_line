@@ -13,11 +13,11 @@ Este proyecto no solo te permitirá añadir una función bastante práctica a tu
 
 - Toda la memoria asignada en el heap deberá liberarse adecuadamente cuando sea necesario. No se permitirán leaks de memoria.
 
-- Si el enunciado lo requiere, deberás entregar un `Makefile` que compilará tus archivos fuente al output requerido con las flags `-Wall`, `-Werror` y `-Wextra`, utilizar `cc` y por supuesto tu `Makefile` no debe hacer relink.
+- ~~Si el enunciado lo requiere, deberás entregar un `Makefile` que compilará tus archivos fuente al output requerido con las flags `-Wall`, `-Werror` y `-Wextra`, utilizar `cc` y por supuesto tu `Makefile` no debe hacer relink.~~
 
-- Tu `Makefile` debe contener al menos las normas `$(NAME)`, `all`, `clean`, `fclean` y `re`.
+- ~~Tu `Makefile` debe contener al menos las normas `$(NAME)`, `all`, `clean`, `fclean` y `re`.~~
 
-- Para entregar los bonus de tu proyecto deberás incluir una regla bonus en tu `Makefile`, en la que añadirás todos los headers, librerías o funciones que estén prohibidas en la parte principal del proyecto. Los bonus deben estar en archivos distintos `_bonus.c` o `_bonus.h`. La parte obligatoria y los bonus se evalúan por separado.
+- ~~Para entregar los bonus de tu proyecto deberás incluir una regla bonus en tu `Makefile`, en la que añadirás todos los headers, librerías o funciones que estén prohibidas en la parte principal del proyecto. Los bonus deben estar en archivos distintos `_bonus.c` o `_bonus.h`. La parte obligatoria y los bonus se evalúan por separado.~~
 
 - ~~Si tu proyecto permite el uso de la `libft`, deberás copiar su fuente y sus `Makefile` asociados en un directorio `libft` con su correspondiente `Makefile`. El `Makefile` de tu proyecto debe compilar primero la librería utilizando su `Makefile`, y después compilar el proyecto.~~
 
