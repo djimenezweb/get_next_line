@@ -14,19 +14,20 @@ Valgrind tests:
 #include "get_next_line.h"
 #include <stdio.h>
 
-char *get_next_line(int fd);
+char	*get_next_line(int fd);
 
-int main(void)
+int	main(void)
 {
 	int		fd;
 	char	*line;
 
-	fd = open("test4", O_RDONLY);
+	fd = open("test5", O_RDONLY);
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		printf("%s", line);
 		free(line);
 	}
-	close(fd);
+	if (fd > 0)
+		close(fd);
 	return (0);
 }
